@@ -27,6 +27,10 @@
               "match": "<[^>]*>"
             },
             {
+              "name": "variable.other.sqlite",
+              "match": "\\{[^}]*\\}"
+            },
+            {
               "include": "#sqlite-content"
             },
             {
@@ -146,8 +150,8 @@
           "match": "[\\[\\]()]"
         },
         {
-          "name": "punctuation.definition.brace.sqlite",
-          "match": "[{}]"
+          "name": "variable.other.sqlite",
+          "match": "\\{[^}]*\\}"
         }
       ]
     }

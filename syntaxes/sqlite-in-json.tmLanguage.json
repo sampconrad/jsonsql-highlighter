@@ -1,0 +1,155 @@
+{
+  "scopeName": "source.sqlite-in-json",
+  "fileTypes": ["json"],
+  "patterns": [
+    {
+      "include": "#json-structure"
+    }
+  ],
+  "repository": {
+    "json-structure": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.json.key",
+          "match": "\"[^\"]*\"(?=\\s*:)"
+        },
+        {
+          "name": "string.quoted.double.json",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "comment.line.sqlite",
+              "match": "'[^']*'"
+            },
+            {
+              "name": "variable.parameter.sqlite",
+              "match": "<[^>]*>"
+            },
+            {
+              "include": "#sqlite-content"
+            },
+            {
+              "name": "constant.character.escape.json",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "constant.numeric.json",
+          "match": "\\b-?\\d+(\\.\\d+)?([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "constant.language.json",
+          "match": "\\b(true|false|null)\\b"
+        },
+        {
+          "name": "punctuation.separator.key-value.json",
+          "match": ":"
+        },
+        {
+          "name": "punctuation.separator.dictionary.pair.json",
+          "match": ","
+        },
+        {
+          "name": "punctuation.definition.dictionary.begin.json",
+          "match": "\\{"
+        },
+        {
+          "name": "punctuation.definition.dictionary.end.json",
+          "match": "\\}"
+        },
+        {
+          "name": "punctuation.definition.array.begin.json",
+          "match": "\\["
+        },
+        {
+          "name": "punctuation.definition.array.end.json",
+          "match": "\\]"
+        }
+      ]
+    },
+    "sqlite-content": {
+      "patterns": [
+        {
+          "name": "keyword.control",
+          "match": "(?i)(\\b|^)(SELECT|FROM|WHERE|GROUP\\s+BY|ORDER\\s+BY|HAVING|LIMIT|OFFSET|UNION|UNION\\s+ALL|INTERSECT|EXCEPT|DISTINCT|ALL)\\b"
+        },
+        {
+          "name": "keyword.other",
+          "match": "(?i)(\\b|^)(JOIN|INNER\\s+JOIN|LEFT\\s+JOIN|RIGHT\\s+JOIN|FULL\\s+JOIN|CROSS\\s+JOIN|ON|AS|CASE|WHEN|THEN|ELSE|END|CREATE|TABLE|INDEX|VIEW|TRIGGER|INSERT|INTO|VALUES|UPDATE|SET|DELETE|DROP|ALTER|RENAME|TO|ADD|COLUMN)\\b"
+        },
+        {
+          "name": "keyword.operator",
+          "match": "(?i)(\\b|^)(IFNULL|COALESCE|NULLIF|IS\\s+NULL|IS\\s+NOT\\s+NULL|IN|NOT\\s+IN|EXISTS|NOT\\s+EXISTS|BETWEEN|NOT\\s+BETWEEN|LIKE|NOT\\s+LIKE|GLOB|NOT\\s+GLOB|REGEXP|NOT\\s+REGEXP|MATCH|NOT\\s+MATCH|AND|OR|NOT|TRUE|FALSE|NULL|PRIMARY\\s+KEY|FOREIGN\\s+KEY|UNIQUE|NOT\\s+NULL|DEFAULT|CHECK|AUTOINCREMENT|VARCHAR|TEXT|INTEGER|REAL|BLOB|NUMERIC|BOOLEAN|DATE|DATETIME|TIME|TIMESTAMP)\\b"
+        },
+        {
+          "name": "support.function",
+          "match": "(?i)(\\b|^)(COUNT|SUM|AVG|MIN|MAX|GROUP_CONCAT|UPPER|LOWER|LENGTH|SUBSTR|REPLACE|TRIM|LTRIM|RTRIM|ROUND|ABS|RANDOM|RANDOMBLOB|ZEROBLOB|HEX|UNHEX|QUOTE|GLOB|LIKE|MATCH|REGEXP|CAST|TYPEOF|INSTR|PRINTF|FORMAT|JULIANDAY|DATETIME|DATE|TIME|STRFTIME|CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|NOW|EXTRACT|YEAR|MONTH|DAY|HOUR|MINUTE|SECOND|MICROSECOND|WEEKDAY|YEARDAY|WEEK|QUARTER|DAYOFWEEK|DAYOFYEAR|WEEKOFYEAR|LAST_INSERT_ROWID|CHANGES|TOTAL_CHANGES|SQLITE_VERSION|SQLITE_SOURCE_ID|SQLITE_VERSION_NUMBER|SQLITE_COMPILEOPTION_GET|SQLITE_COMPILEOPTION_USED|Upper|GLOB|substr|length|IfNull|Group_Concat|upper|ifnull|group_concat|substr|replace|trim|ltrim|rtrim|round|abs|random|randomblob|zeroblob|hex|unhex|quote|like|match|regexp|cast|typeof|instr|printf|format|julianday|datetime|date|time|strftime|current_date|current_time|current_timestamp|now|extract|year|month|day|hour|minute|second|microsecond|weekday|yearday|week|quarter|dayofweek|dayofyear|weekofyear|last_insert_rowid|changes|total_changes|sqlite_version|sqlite_source_id|sqlite_version_number|sqlite_compileoption_get|sqlite_compileoption_used)\\b"
+        },
+        {
+          "name": "keyword.operator.comparison",
+          "match": "[+\\-*/%=<>!&|^~]|==|!=|<>|<=|>=|\\|\\||&&"
+        },
+        {
+          "name": "string.quoted.double.sqlite",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.sqlite",
+              "match": "\\\""
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.backtick.sqlite",
+          "begin": "`",
+          "end": "`"
+        },
+        {
+          "name": "constant.numeric.sqlite",
+          "match": "\\b\\d+(\\.\\d+)?([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "comment.line.double-dash.sqlite",
+          "begin": "--",
+          "end": "$"
+        },
+        {
+          "name": "comment.block.sqlite",
+          "begin": "/\\*",
+          "end": "\\*/"
+        },
+        {
+          "name": "entity.name.table.sqlite",
+          "match": "\\b[A-Z][A-Z0-9_]*\\b"
+        },
+        {
+          "name": "entity.name.column.sqlite",
+          "match": "\\b[A-Z][A-Z0-9_]*\\.[A-Za-z][A-Za-z0-9_]*\\b"
+        },
+        {
+          "name": "variable.other.sqlite",
+          "match": "\\b[a-z_][a-zA-Z0-9_]*\\b"
+        },
+        {
+          "name": "variable.parameter.sqlite",
+          "match": "\\?"
+        },
+        {
+          "name": "punctuation.separator.sqlite",
+          "match": "[,;]"
+        },
+        {
+          "name": "punctuation.definition.bracket.sqlite",
+          "match": "[\\[\\]()]"
+        },
+        {
+          "name": "punctuation.definition.brace.sqlite",
+          "match": "[{}]"
+        }
+      ]
+    }
+  }
+}

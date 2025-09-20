@@ -2,6 +2,8 @@
 
 A VS Code extension that provides SQLite syntax highlighting for SQL queries embedded in JSON files.
 
+![Preview](preview.webp)
+
 ## Perfect For
 
 - Configuration files containing SQL queries

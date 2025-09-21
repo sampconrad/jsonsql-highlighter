@@ -1,5 +1,7 @@
 # SQL Highlighter for JSON
 
+![Extension Icon](icon.png)
+
 A VS Code extension that provides syntax highlighting for SQL queries embedded in JSON files.
 
 ![Preview](preview.webp)

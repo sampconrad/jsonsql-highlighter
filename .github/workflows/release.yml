@@ -1,0 +1,65 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on any tag starting with 'v' (e.g., v1.0.0, v1.2.3)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Compile TypeScript
+      run: npm run compile
+      
+    - name: Package extension
+      run: npx vsce package --no-dependencies
+      
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        body: |
+          ## What's Changed
+          
+          This release includes the latest changes to the SQLite Highlighter for JSON extension.
+          
+          ## Installation
+          
+          Download the `.vsix` file from the assets below and install it in VS Code:
+          1. Open VS Code
+          2. Go to Extensions (Ctrl+Shift+X)
+          3. Click the "..." menu and select "Install from VSIX..."
+          4. Select the downloaded `.vsix` file
+          
+          ## Files
+          
+          - `jsonsqlite-highlighter-${{ github.ref_name }}.vsix` - The packaged extension
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./jsonsqlite-highlighter-${{ github.ref_name }}.vsix
+        asset_name: jsonsqlite-highlighter-${{ github.ref_name }}.vsix
+        asset_content_type: application/octet-stream

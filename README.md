@@ -1,6 +1,6 @@
-# SQLite Highlighter for JSON
+# SQL Highlighter for JSON
 
-A VS Code extension that provides SQLite syntax highlighting for SQL queries embedded in JSON files.
+A VS Code extension that provides syntax highlighting for SQL queries embedded in JSON files.
 
 ![Preview](preview.webp)
 
@@ -8,7 +8,7 @@ A VS Code extension that provides SQLite syntax highlighting for SQL queries emb
 
 - Configuration files containing SQL queries
 - Database migration scripts in JSON format
-- Any JSON file where SQLite queries are stored as string values
+- Any JSON file where SQL queries are stored as string values
 
 ## 🎨 Visual Highlighting
 
@@ -26,7 +26,7 @@ The extension provides distinct visual cues for different elements:
 1. Install the VSIX package in VS Code
    
    <img width="658" height="332" alt="image" src="https://github.com/user-attachments/assets/e79ea908-fc5b-45ff-8af0-22dffb936093" />
-3. Open any JSON file with SQLite queries
+3. Open any JSON file with SQL queries
 4. Enjoy enhanced syntax highlighting!
 
 ## 🔧 Development

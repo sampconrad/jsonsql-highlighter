@@ -22,10 +22,10 @@
               "name": "keyword.operator",
               "match": "'[^']*'"
             },
-            {
-              "name": "variable.parameter.sql",
-              "match": "<[^>]*>"
-            },
+             {
+               "name": "variable.parameter.sql",
+               "match": "<[A-Za-z][A-Za-z0-9_]*>"
+             },
             {
               "name": "string.quoted.double.json.key",
               "match": "\\{[^}]*\\}"
@@ -73,12 +73,20 @@
         }
       ]
     },
-    "sql-content": {
-      "patterns": [
-        {
-          "name": "keyword.control",
-          "match": "(?i)(\\b|^)(SELECT|FROM|WHERE|GROUP\\s+BY|ORDER\\s+BY|HAVING|LIMIT|OFFSET|UNION|UNION\\s+ALL|INTERSECT|EXCEPT|DISTINCT|ALL)\\b"
-        },
+     "sql-content": {
+       "patterns": [
+          {
+            "name": "storage.type.sql",
+            "match": "/\\*[\\s\\S]*?\\*/"
+          },
+          {
+            "name": "storage.modifier.sql",
+            "match": "(^|\\s)--.*$"
+          },
+         {
+           "name": "keyword.control",
+           "match": "(?i)(\\b|^)(SELECT|FROM|WHERE|GROUP\\s+BY|ORDER\\s+BY|HAVING|LIMIT|OFFSET|UNION|UNION\\s+ALL|INTERSECT|EXCEPT|DISTINCT|ALL)\\b"
+         },
         {
           "name": "entity.name.tag.sql",
           "match": "(?i)(\\b|^)(JOIN|INNER\\s+JOIN|LEFT\\s+JOIN|RIGHT\\s+JOIN|FULL\\s+JOIN|CROSS\\s+JOIN|ON|AS|CASE|WHEN|THEN|ELSE|END|CREATE|TABLE|INDEX|VIEW|TRIGGER|INSERT|INTO|VALUES|UPDATE|SET|DELETE|DROP|ALTER|RENAME|TO|ADD|COLUMN)\\b"
@@ -116,16 +124,6 @@
           "match": "\\b\\d+(\\.\\d+)?([eE][+-]?\\d+)?\\b"
         },
         {
-          "name": "comment.line.double-dash.sql",
-          "begin": "--",
-          "end": "$"
-        },
-        {
-          "name": "comment.block.sql",
-          "begin": "/\\*",
-          "end": "\\*/"
-        },
-        {
           "name": "comment.line.sql",
           "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
         },
@@ -153,18 +151,22 @@
           "name": "punctuation.separator.sql",
           "match": "[;]"
         },
-        {
-          "name": "punctuation.definition.parenthesis.sql",
-          "match": "[()]"
-        },
-        {
-          "name": "punctuation.definition.bracket.sql",
-          "match": "[\\[\\]]"
-        },
-        {
-          "name": "string.quoted.double.json.key",
-          "match": "\\{[^}]*\\}"
-        }
+         {
+           "name": "punctuation.definition.parenthesis.sql",
+           "match": "[()]"
+         },
+         {
+           "name": "punctuation.definition.bracket.sql",
+           "match": "[\\[\\]]"
+         },
+         {
+           "name": "punctuation.definition.brace.sql",
+           "match": "[\\{\\}]"
+         },
+         {
+           "name": "string.quoted.double.json.key",
+           "match": "\\{[^}]*\\}"
+         }
       ]
     }
   }

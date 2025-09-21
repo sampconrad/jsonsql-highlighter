@@ -4,13 +4,13 @@ A VS Code extension that provides SQLite syntax highlighting for SQL queries emb
 
 ![Preview](preview.webp)
 
-## Perfect For
+## 🏗️ Perfect For
 
 - Configuration files containing SQL queries
 - Database migration scripts in JSON format
 - Any JSON file where SQLite queries are stored as string values
 
-## Visual Highlighting
+## 📊 Visual Highlighting
 
 The extension provides distinct visual cues for different elements:
 
@@ -21,13 +21,15 @@ The extension provides distinct visual cues for different elements:
 - **Temporary Variables**: `<IDM>`, `<IDM>` - Purple highlighting to show they're placeholders
 - **Comparison Operators**: `=`, `<>`, `<=`, `>=` - Your theme's operator color
 
-## Installation
+## 🚀 Installation
 
 1. Install the VSIX package in VS Code
-2. Open any JSON file with SQLite queries
-3. Enjoy enhanced syntax highlighting!
+   
+   <img width="658" height="332" alt="image" src="https://github.com/user-attachments/assets/e79ea908-fc5b-45ff-8af0-22dffb936093" />
+3. Open any JSON file with SQLite queries
+4. Enjoy enhanced syntax highlighting!
 
-## Development
+## 🛠️ Development
 
 To build the extension:
 
@@ -42,6 +44,6 @@ To watch for changes during development:
 npm run watch
 ```
 
-## License
+## 📄 License
 
 MIT License

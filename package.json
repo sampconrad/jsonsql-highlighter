@@ -2,7 +2,7 @@
   "name": "jsonsqlite-highlighter",
   "displayName": "SQLite Highlighter for JSON",
   "description": "Enhanced syntax highlighting for SQLite queries embedded in JSON files with distinct visual elements for strings, variables, and SQL keywords",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "sampconrad <https://github.com/sampconrad>",
   "homepage": "https://github.com/sampconrad",
   "publisher": "sampconrad",

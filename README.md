@@ -1,10 +1,12 @@
-# SQL Highlighter for JSON
+<div align="center">
+  <img src="icon.png" width="128" height="128">
+  
+  # SQL Highlighter for JSON
 
-![Extension Icon](icon.png)
+  A VS Code extension that provides syntax highlighting for SQL queries embedded in JSON files.
 
-A VS Code extension that provides syntax highlighting for SQL queries embedded in JSON files.
-
-![Preview](preview.webp)
+  ![Preview](preview.webp)
+</div>
 
 ## 🎯 Perfect For
 

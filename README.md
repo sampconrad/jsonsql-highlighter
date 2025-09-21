@@ -23,11 +23,11 @@ The extension provides distinct visual cues for different elements:
 
 ## 📦 Installation
 
-1. Install the VSIX package in VS Code
-   
-   <img width="658" height="332" alt="image" src="https://github.com/user-attachments/assets/e79ea908-fc5b-45ff-8af0-22dffb936093" />
-3. Open any JSON file with SQL queries
-4. Enjoy enhanced syntax highlighting!
+Download the `.vsix` file from the latest release and install it in VS Code:
+1. Open VS Code
+2. Go to Extensions (Ctrl+Shift+X)
+3. Click the "..." menu and select "Install from VSIX..."
+4. Select the downloaded `.vsix` file
 
 ## 🔧 Development
 

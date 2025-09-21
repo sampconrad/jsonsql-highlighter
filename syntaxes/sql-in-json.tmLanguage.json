@@ -79,10 +79,6 @@
             "name": "storage.type.sql",
             "match": "/\\*[\\s\\S]*?\\*/"
           },
-          {
-            "name": "storage.modifier.sql",
-            "match": "(^|\\s)--.*$"
-          },
          {
            "name": "keyword.control",
            "match": "(?i)(\\b|^)(SELECT|FROM|WHERE|GROUP\\s+BY|ORDER\\s+BY|HAVING|LIMIT|OFFSET|UNION|UNION\\s+ALL|INTERSECT|EXCEPT|DISTINCT|ALL)\\b"

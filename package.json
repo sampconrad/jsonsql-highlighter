@@ -1,14 +1,14 @@
 {
-  "name": "jsonsqlite-highlighter",
-  "displayName": "SQLite Highlighter for JSON",
-  "description": "Enhanced syntax highlighting for SQLite queries embedded in JSON files with distinct visual elements for strings, variables, and SQL keywords",
+  "name": "jsonsql-highlighter",
+  "displayName": "SQL Highlighter for JSON",
+  "description": "Enhanced syntax highlighting for SQL queries embedded in JSON files with distinct visual elements for strings, variables, and SQL keywords",
   "version": "1.0.7",
   "author": "sampconrad <https://github.com/sampconrad>",
   "homepage": "https://github.com/sampconrad",
   "publisher": "sampconrad",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sampconrad/jsonsqlite-highlighter.git"
+    "url": "https://github.com/sampconrad/jsonsql-highlighter.git"
   },
   "engines": {
     "vscode": "^1.74.0"
@@ -24,17 +24,17 @@
   "contributes": {
     "languages": [
       {
-        "id": "sqlite-in-json",
-        "aliases": ["SQLite in JSON", "sqlite-json"],
+        "id": "sql-in-json",
+        "aliases": ["SQL in JSON", "sql-json"],
         "extensions": [".json"],
         "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
       {
-        "language": "sqlite-in-json",
-        "scopeName": "source.sqlite-in-json",
-        "path": "./syntaxes/sqlite-in-json.tmLanguage.json"
+        "language": "sql-in-json",
+        "scopeName": "source.sql-in-json",
+        "path": "./syntaxes/sql-in-json.tmLanguage.json"
       }
     ]
   },

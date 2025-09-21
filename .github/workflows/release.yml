@@ -45,7 +45,7 @@ jobs:
           --title "Release ${{ github.ref_name }}" \
           --notes "## What's Changed
         
-        This release includes the latest changes to the SQLite Highlighter for JSON extension.
+        This release includes the latest changes to the SQL Highlighter for JSON extension.
         
         ## Installation
         

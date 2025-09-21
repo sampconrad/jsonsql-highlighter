@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'  # Triggers on any tag starting with 'v' (e.g., v1.0.0, v1.2.3)
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -33,37 +36,24 @@ jobs:
       run: npx vsce package --no-dependencies
       
     - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref_name }}
-        release_name: Release ${{ github.ref_name }}
-        body: |
-          ## What's Changed
-          
-          This release includes the latest changes to the SQLite Highlighter for JSON extension.
-          
-          ## Installation
-          
-          Download the `.vsix` file from the assets below and install it in VS Code:
-          1. Open VS Code
-          2. Go to Extensions (Ctrl+Shift+X)
-          3. Click the "..." menu and select "Install from VSIX..."
-          4. Select the downloaded `.vsix` file
-          
-          ## Files
-          
-          - `jsonsqlite-highlighter-${{ github.ref_name }}.vsix` - The packaged extension
-        draft: false
-        prerelease: false
+      run: |
+        gh release create ${{ github.ref_name }} \
+          --title "Release ${{ github.ref_name }}" \
+          --notes "## What's Changed
         
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
+        This release includes the latest changes to the SQLite Highlighter for JSON extension.
+        
+        ## Installation
+        
+        Download the \`.vsix\` file from the assets below and install it in VS Code:
+        1. Open VS Code
+        2. Go to Extensions (Ctrl+Shift+X)
+        3. Click the \"...\" menu and select \"Install from VSIX...\"
+        4. Select the downloaded \`.vsix\` file
+        
+        ## Files
+        
+        - \`jsonsqlite-highlighter-${{ github.ref_name }}.vsix\` - The packaged extension" \
+          ./jsonsqlite-highlighter-${{ github.ref_name }}.vsix
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./jsonsqlite-highlighter-${{ github.ref_name }}.vsix
-        asset_name: jsonsqlite-highlighter-${{ github.ref_name }}.vsix
-        asset_content_type: application/octet-stream

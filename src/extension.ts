@@ -3,6 +3,16 @@ import * as vscode from 'vscode';
 export function activate(context: vscode.ExtensionContext) {
     console.log('SQL Highlighter extension is now active!');
     
+    function processDocument(document: vscode.TextDocument) {
+        if (shouldProcessFile(document)) {
+            const content = document.getText();
+            
+            if (hasSqlContent(content)) {
+                vscode.languages.setTextDocumentLanguage(document, 'sql-in-json');
+            }
+        }
+    }
+    
     // checking if content of the JSON contains SQL
     function hasSqlContent(content: string): boolean {
         const sqlKeywords = [
@@ -60,15 +70,9 @@ export function activate(context: vscode.ExtensionContext) {
                !document.fileName.includes('node_modules');
     }
     
-    const onDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument((document) => {
-        if (shouldProcessFile(document)) {
-            const content = document.getText();
-            
-            if (hasSqlContent(content)) {
-                vscode.languages.setTextDocumentLanguage(document, 'sql-in-json');
-            }
-        }
-    });
+    vscode.workspace.textDocuments.forEach(processDocument);
+
+    const onDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument(processDocument);
 
     // handle when documents change content
     const onDidChangeTextDocument = vscode.workspace.onDidChangeTextDocument((event) => {

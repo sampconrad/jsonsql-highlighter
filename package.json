@@ -27,7 +27,6 @@
       {
         "id": "sql-in-json",
         "aliases": ["SQL in JSON", "sql-json"],
-        "extensions": [".json"],
         "configuration": "./language-configuration.json"
       }
     ],

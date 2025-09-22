@@ -2,7 +2,7 @@
   "name": "jsonsql-highlighter",
   "displayName": "SQL Highlighter for JSON",
   "description": "Enhanced syntax highlighting for SQL queries embedded in JSON files with distinct visual elements for easier code identification",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "sampconrad <https://github.com/sampconrad>",
   "homepage": "https://github.com/sampconrad",
   "publisher": "sampconrad",

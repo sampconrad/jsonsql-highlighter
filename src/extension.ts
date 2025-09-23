@@ -515,14 +515,6 @@ function postprocessSQL(formattedSQL: string, placeholders: string[]): string {
     return result;
 }
 
-function escapeHtml(text: string): string {
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
 
 export function deactivate() {
     console.log('SQL Highlighter extension is now deactivated');

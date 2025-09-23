@@ -3,7 +3,7 @@
     "basic_select": "SELECT * FROM users WHERE id = 1",
     "complex_query": "SELECT u.name, p.title FROM users u INNER JOIN posts p ON u.id = p.user_id WHERE u.active = 1 AND p.published = 'true'",
     "with_functions": "SELECT COUNT(*), AVG(price), MAX(created_at), MIN(updated_at) FROM products WHERE category = 'electronics'",
-    "case_statement": "SELECT CASE WHEN age <= 25 THEN 'young' WHEN age <= 50 THEN 'middle' ELSE 'senior' END as age_group FROM users",
+    "case_statement": "SELECT CASE WHEN age &lt;= 25 THEN &#39;young&#39; WHEN age &lt;= 50 THEN &#39;middle&#39; WHEN age <= 3 ELSE &#39;senior&#39; END AS age_group FROM users",
     "string_functions": "SELECT UPPER(name), LOWER(email), LENGTH(description), SUBSTR(phone, 1, 3) FROM contacts",
     "date_functions": "SELECT CURRENT_DATE, CURRENT_TIME, CURRENT_TIMESTAMP, DATETIME('now'), DATE('2023-01-01') FROM events",
     "with_comments": "SELECT * FROM users -- This is a line comment WHERE id = 1 /* This is a block comment with multiple lines that should be highlighted properly */",

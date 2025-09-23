@@ -2,7 +2,7 @@
   "name": "jsonsql-highlighter",
   "displayName": "SQL Highlighter for JSON",
   "description": "A VS Code extension that provides syntax highlighting for SQL queries embedded in JSON files.",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "author": "sampconrad <https://github.com/sampconrad>",
   "homepage": "https://github.com/sampconrad",
   "publisher": "sampconrad",
@@ -36,12 +36,31 @@
         "scopeName": "source.sql-in-json",
         "path": "./syntaxes/sql-in-json.tmLanguage.json"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "jsonsql-highlighter.formatSQL",
+        "title": "SQL Highlighter for JSON - Formatter",
+        "category": "SQL Highlighter"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "jsonsql-highlighter.formatSQL",
+          "group": "1_modification"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "sql-formatter": "^15.3.2"
   },
   "devDependencies": {
     "@types/node": "16.x",

@@ -84,19 +84,23 @@ function createSQLFormatterWebview(
   panel.webview.onDidReceiveMessage(
     async (message) => {
       switch (message.command) {
-        case 'save':
-          // replace the selected text with the modified SQL
+        case 'save': {
           const modifiedSQL = message.sql;
-          // remove unnecessary spaces and line breaks for JSON string
           const cleanedSQL = modifiedSQL.replace(/\s+/g, ' ').trim();
 
+          // If the user made no edits (content is identical to the pre-formatted text),
+          // keep the original selection untouched to avoid unnecessary changes.
+          const originalClean = formattedSQL.replace(/\s+/g, ' ').trim();
+          const finalSQL = cleanedSQL === originalClean ? selectedText : cleanedSQL;
+
           await editor.edit((editBuilder) => {
-            editBuilder.replace(selection, cleanedSQL);
+            editBuilder.replace(selection, finalSQL);
           });
 
           panel.dispose();
           vscode.window.showInformationMessage('SQL updated successfully!');
           break;
+        }
         case 'cancel':
           panel.dispose();
           break;

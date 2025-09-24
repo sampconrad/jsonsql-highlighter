@@ -229,7 +229,9 @@ export function getWebviewContent(sqlContent: string, iconUri: vscode.Uri): stri
                   });
                   
                   editor = monaco.editor.create(document.getElementById('sqlEditor'), {
-                      value: \`${sqlContent.replace(/`/g, '\\`')}\`,
+                      value: \`${sqlContent
+                        .replace(/\\/g, '\\\\') // escape backslashes first
+                        .replace(/`/g, '\\`')}\`,
                       language: 'sql',
                       theme: 'vs-dark',
                       automaticLayout: true,

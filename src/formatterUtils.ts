@@ -5,16 +5,26 @@ import { format } from 'sql-formatter';
  */
 export function preprocessSQL(sql: string): { processedSQL: string; placeholders: string[] } {
   const placeholders: string[] = [];
-  const patterns = [/\{[^}]+\}(?:#\d+)?/g, /<[^>]+>(?:#\d+)?/g];
   let processed = sql;
 
-  patterns.forEach((pattern) => {
+  /**
+   * Helper to swap any pattern with a placeholder token storing original text.
+   */
+  const swapWithPlaceholder = (pattern: RegExp) => {
     processed = processed.replace(pattern, (match) => {
-      const placeholder = `__TEMPLATE_VAR_${placeholders.length}__`;
+      const placeholder = `__PLACEHOLDER_${placeholders.length}__`;
       placeholders.push(match);
       return placeholder;
     });
-  });
+  };
+
+  // 1. Preserve single-quoted string literals (including escaped quotes)
+  //    Example: 'Bob''s car'  or  'some "quoted" text'
+  //    Regex:   '(?:''|[^'])*'
+  swapWithPlaceholder(/'(?:''|[^'])*'/g);
+
+  // 2. Preserve template variables like {var} or <var>
+  [ /\{[^}]+\}(?:#\d+)?/g, /<[^>]+>(?:#\d+)?/g ].forEach(swapWithPlaceholder);
 
   return { processedSQL: processed, placeholders };
 }
@@ -25,8 +35,10 @@ export function preprocessSQL(sql: string): { processedSQL: string; placeholders
 export function postprocessSQL(formattedSQL: string, placeholders: string[]): string {
   let result = formattedSQL;
   placeholders.forEach((original, index) => {
-    const placeholder = new RegExp(`__TEMPLATE_VAR_${index}__`, 'g');
-    result = result.replace(placeholder, original);
+    const patterns = [new RegExp(`__PLACEHOLDER_${index}__`, 'g'), new RegExp(`__TEMPLATE_VAR_${index}__`, 'g')];
+    patterns.forEach((ph) => {
+      result = result.replace(ph, original);
+    });
   });
   return result;
 }

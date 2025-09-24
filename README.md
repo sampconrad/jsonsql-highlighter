@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icon.png" width="128" height="128">
   
-  # SQL Highlighter for JSON
+  # SQL Highlighter For JSON
 
   A VS Code extension that provides syntax highlighting for SQL queries embedded in JSON files.
 

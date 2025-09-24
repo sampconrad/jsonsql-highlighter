@@ -29,28 +29,25 @@ Click the toggle to switch between:
 
 The extension provides distinct visual cues for different elements based on your VS Code theme colors:
 
-**Before:** Plain JSON with unreadable SQL strings
+**Before:** Plain JSON with unreadable SQL strings:
   ![Before](preview/before.webp)
 
-**After:** Beautiful syntax highlighting with proper SQL colors
+**After:** Beautiful syntax highlighting with proper SQL colors:
   ![After](preview/after.webp)
 
 ## ✨ SQL Editor Feature
 
-Open the SQL editor in two ways:
-
-1. **Click** the CodeLens button shown above SQL strings
+1. Open the SQL editor in two ways:
+- **A:** **Click** the CodeLens button shown above SQL strings:
 
   ![CodeLens](preview/codelens.webp)
 
-2. **Select** a SQL string in your JSON, **Right-click** and choose **Edit in SQL Editor**
+- **B:** **Select** a SQL string in your JSON, **Right-click** and choose **Edit in SQL Editor**:
 
   ![SQL Editor](preview/preview.webp)
 
-### 🚀 How to Use
-1. **Open** the SQL Editor from the **CodeLens button**, or context menu by **Selecting a String > Right-clicking > Edit in SQL Editor**
 2. **Edit with full SQL support** including syntax highlighting and autocomplete
-43. **Save or Cancel**:
+3. **Save or Cancel**:
    - **Save**: Converts back to a clean JSON string (removes line breaks and extra spaces)
    - **Cancel**: Discards changes and closes the editor
 

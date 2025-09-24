@@ -8,8 +8,7 @@ export class SqlCodeLensProvider implements vscode.CodeLensProvider {
   private _onDidChangeCodeLenses = new vscode.EventEmitter<void>();
   readonly onDidChangeCodeLenses: vscode.Event<void> = this._onDidChangeCodeLenses.event;
 
-  constructor() {
-    // Refresh lenses when JSON documents change.
+  constructor(private isEnabled: (uri: vscode.Uri) => boolean) {
     vscode.workspace.onDidChangeTextDocument((e) => {
       if (e.document.languageId === 'json' || e.document.languageId === 'sql-in-json') {
         this._onDidChangeCodeLenses.fire();
@@ -17,9 +16,14 @@ export class SqlCodeLensProvider implements vscode.CodeLensProvider {
     });
   }
 
+  /** Trigger recomputation of lenses */
+  refresh() {
+    this._onDidChangeCodeLenses.fire();
+  }
+
   provideCodeLenses(document: vscode.TextDocument, _token: vscode.CancellationToken): vscode.CodeLens[] {
     const codeLenses: vscode.CodeLens[] = [];
-    if (document.languageId !== 'json' && document.languageId !== 'sql-in-json') {
+    if (!this.isEnabled(document.uri)) {
       return codeLenses;
     }
 

@@ -4,23 +4,36 @@ import { SqlCodeLensProvider } from './sqlCodeLensProvider';
 import { hasSqlContent, processDocument, shouldProcessFile } from './sqlDetector';
 import { getWebviewContent } from './webviewTemplate';
 
+// Track per-document whether SQL-in-JSON features are enabled
+const sqlMode = new Map<string, boolean>();
+
+function isSqlModeEnabled(uri: vscode.Uri): boolean {
+  return sqlMode.get(uri.toString()) ?? false;
+}
+
 export function activate(context: vscode.ExtensionContext) {
   console.log('SQL Highlighter For JSON extension is now active!');
 
-  vscode.workspace.textDocuments.forEach(processDocument);
+  const ensureLanguageMode = (document: vscode.TextDocument) => {
+    if (!isSqlModeEnabled(document.uri)) return;
+    processDocument(document);
+  };
 
-  const onDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument(processDocument);
+  vscode.workspace.textDocuments.forEach(ensureLanguageMode);
+
+  const onDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument(ensureLanguageMode);
 
   // handle when documents change content
   const onDidChangeTextDocument = vscode.workspace.onDidChangeTextDocument((event) => {
     const document = event.document;
+    if (!isSqlModeEnabled(document.uri)) return;
+
     if (shouldProcessFile(document) || document.languageId === 'sql-in-json') {
       const content = document.getText();
 
       if (hasSqlContent(content) && document.languageId === 'json') {
         vscode.languages.setTextDocumentLanguage(document, 'sql-in-json');
       } else if (!hasSqlContent(content) && document.languageId === 'sql-in-json') {
-        // if it was previously SQL but no longer has SQL content, switch back to JSON
         vscode.languages.setTextDocumentLanguage(document, 'json');
       }
     }
@@ -47,13 +60,53 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  const codeLensProvider = new SqlCodeLensProvider();
+  const codeLensProvider = new SqlCodeLensProvider(isSqlModeEnabled);
   const codeLensDisposable = vscode.languages.registerCodeLensProvider(
     [{ language: 'json' }, { language: 'sql-in-json' }],
     codeLensProvider
   );
 
-  // command executed when user clicks "Open in SQL Editor" lens
+  // StatusBar toggle
+  const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+  statusBar.command = 'jsonsql-highlighter.toggleSqlMode';
+  context.subscriptions.push(statusBar);
+
+  function refreshStatusBar() {
+    const active = vscode.window.activeTextEditor?.document;
+    if (!active || (active.languageId !== 'json' && active.languageId !== 'sql-in-json')) {
+      statusBar.hide();
+      return;
+    }
+    const enabled = isSqlModeEnabled(active.uri);
+    const icon = enabled ? '$(bracket-dot)' : '$(bracket-error)';
+    statusBar.text = `${icon} SQL in JSON`;
+    statusBar.color = enabled ? '#37b24d' : '#e03131';
+    statusBar.show();
+  }
+
+  vscode.window.onDidChangeActiveTextEditor(refreshStatusBar, null, context.subscriptions);
+  vscode.workspace.onDidOpenTextDocument(refreshStatusBar, null, context.subscriptions);
+  refreshStatusBar();
+
+  const toggleCmd = vscode.commands.registerCommand('jsonsql-highlighter.toggleSqlMode', () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) return;
+    const doc = editor.document;
+    if (doc.languageId !== 'json' && doc.languageId !== 'sql-in-json') return;
+
+    const enabled = isSqlModeEnabled(doc.uri);
+    if (enabled) {
+      // disable
+      sqlMode.set(doc.uri.toString(), false);
+      vscode.languages.setTextDocumentLanguage(doc, 'json');
+    } else {
+      sqlMode.set(doc.uri.toString(), true);
+      vscode.languages.setTextDocumentLanguage(doc, 'sql-in-json');
+    }
+    refreshStatusBar();
+  });
+
+  // Command executed when user clicks "Open in SQL Editor" lens
   const openSqlEditorCmd = vscode.commands.registerCommand(
     'jsonsql-highlighter.openSqlEditor',
     async (uri: vscode.Uri, range: vscode.Range) => {
@@ -73,7 +126,8 @@ export function activate(context: vscode.ExtensionContext) {
     onDidChangeTextDocument,
     formatSQLCommand,
     codeLensDisposable,
-    openSqlEditorCmd
+    openSqlEditorCmd,
+    toggleCmd
   );
 }
 

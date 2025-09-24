@@ -185,6 +185,7 @@ export function getWebviewContent(sqlContent: string, iconUri: vscode.Uri): stri
                       'SELECT', 'FROM', 'WHERE', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'DROP', 'ALTER',
                       'JOIN', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN', 'FULL OUTER JOIN',
                       'GROUP BY', 'ORDER BY', 'HAVING', 'UNION', 'UNION ALL', 'DISTINCT', 'COUNT', 'SUM',
+                      'PRAGMA', 'WITHOUT', 'ROWID', 'REPLACE', 'INSERT OR REPLACE', 'UPSERT', 'ON CONFLICT',
                       'AVG', 'MAX', 'MIN', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ON', 'IN',
                       'NOT IN', 'BETWEEN', 'LIKE', 'NOT LIKE', 'IS NULL', 'IS NOT NULL', 'AND', 'OR',
                       'NOT', 'EXISTS', 'NOT EXISTS', 'INTO', 'VALUES', 'SET', 'TABLE', 'INDEX', 'VIEW',
@@ -197,8 +198,7 @@ export function getWebviewContent(sqlContent: string, iconUri: vscode.Uri): stri
                       'UPPER', 'LOWER', 'LENGTH', 'SUBSTR', 'SUBSTRING', 'TRIM', 'LTRIM', 'RTRIM',
                       'REPLACE', 'CONCAT', 'CAST', 'CONVERT', 'ISNULL', 'IFNULL', 'COALESCE', 'NULLIF',
                       'ROUND', 'FLOOR', 'CEIL', 'ABS', 'RANDOM', 'RAND', 'CURRENT_DATE', 'CURRENT_TIME',
-                      'CURRENT_TIMESTAMP', 'NOW', 'DATE', 'TIME', 'DATETIME', 'YEAR', 'MONTH', 'DAY',
-                      'HOUR', 'MINUTE', 'SECOND', 'EXTRACT', 'DATEADD', 'DATEDIFF', 'GETDATE', 'SYSDATE'
+                      'DATE', 'TIME', 'DATETIME', 'JULIANDAY', 'STRFTIME',
                   ];
                   
                   monaco.languages.registerCompletionItemProvider('sql', {

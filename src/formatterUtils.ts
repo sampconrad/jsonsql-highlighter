@@ -38,7 +38,7 @@ export function safeFormat(sql: string): string {
   try {
     const { processedSQL, placeholders } = preprocessSQL(sql);
     const formatted = format(processedSQL, {
-      language: 'sql',
+      language: 'sqlite',
       tabWidth: 2,
       useTabs: false,
       keywordCase: 'upper',

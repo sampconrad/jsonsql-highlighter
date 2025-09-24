@@ -14,27 +14,43 @@
 - **Development workflows** where SQL is stored as JSON strings in configuration
 - **Code reviews** of JSON files with embedded SQL - much easier to read and understand
 
+## 🟢/🔴 Toggle SQL-in-JSON Mode
+
+Enable or disable highlighting & CodeLens via the status-bar toggle:
+
+  ![Toggle](preview/toggle.webp)
+
+Click the toggle to switch between:
+
+* 🟢 **ON** – JSON strings containing SQL are highlighted and CodeLens appears.
+* 🔴 **OFF** – File behaves like normal JSON.
+
 ## 🎨 Visual Highlighting
 
 The extension provides distinct visual cues for different elements based on your VS Code theme colors:
 
 **Before:** Plain JSON with unreadable SQL strings
-  ![Before](before.webp)
+  ![Before](preview/before.webp)
 
 **After:** Beautiful syntax highlighting with proper SQL colors
-  ![After](after.webp)
+  ![After](preview/after.webp)
 
 ## ✨ SQL Editor Feature
 
-Select any SQL text in your JSON file and right-click to open it in a dedicated SQL editor:
+Open the SQL editor in two ways:
 
-  ![preview](preview.webp)
+1. **Click** the CodeLens button shown above SQL strings
+
+  ![CodeLens](preview/codelens.webp)
+
+2. **Select** a SQL string in your JSON, **Right-click** and choose **Edit in SQL Editor**
+
+  ![SQL Editor](preview/preview.webp)
 
 ### 🚀 How to Use
-1. **Select SQL text** in your JSON file (the string containing SQL)
-2. **Right-click** and choose "Edit in SQL Editor"
-3. **Edit with full SQL support** including syntax highlighting and autocomplete
-4. **Save or Cancel**:
+1. **Open** the SQL Editor from the **CodeLens button**, or context menu by **Selecting a String > Right-clicking > Edit in SQL Editor**
+2. **Edit with full SQL support** including syntax highlighting and autocomplete
+43. **Save or Cancel**:
    - **Save**: Converts back to a clean JSON string (removes line breaks and extra spaces)
    - **Cancel**: Discards changes and closes the editor
 

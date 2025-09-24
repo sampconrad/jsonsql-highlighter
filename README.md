@@ -3,7 +3,7 @@
   
   # SQL Highlighter For JSON
 
-  A VS Code extension that enhances the developer experience when working with SQL queries embedded in JSON strings. Features automatic syntax highlighting for SQL within JSON files and a dedicated SQL editor with auto-complete, formatting, and seamless conversion back to single-line strings suitable for JSON.
+  A VS Code extension that enhances the developer experience when working with SQL queries embedded in JSON strings. Features toggleable syntax highlighting for SQL within JSON files and a full-featured dedicated SQL editor with seamless conversion back to single-line strings suitable for JSON.
 </div>
 
 ## 🎯 Perfect For

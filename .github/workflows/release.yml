@@ -41,11 +41,20 @@ jobs:
     - name: Create Release
       run: |
         VSIX_FILE=$(ls *.vsix | head -1)
+        
+        # Generate release notes from commits since last tag
+        RELEASE_NOTES=$(gh api repos/${{ github.repository }}/releases --jq '.[0].tag_name' 2>/dev/null || echo "")
+        if [ -n "$RELEASE_NOTES" ]; then
+          COMMITS=$(git log --pretty=format:"- %s" $RELEASE_NOTES..HEAD)
+        else
+          COMMITS=$(git log --pretty=format:"- %s" --max-count=10)
+        fi
+        
         gh release create ${{ github.ref_name }} \
           --title "Release ${{ github.ref_name }}" \
           --notes "## What's Changed
         
-        This release includes the latest changes to the SQL Highlighter For JSON extension.
+        $COMMITS
         
         ## Installation
         

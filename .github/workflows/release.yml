@@ -33,7 +33,7 @@ jobs:
       run: npm run compile
       
     - name: Package extension
-      run: npx vsce package --no-dependencies
+      run: npx vsce package
       
     - name: List files
       run: ls -la *.vsix

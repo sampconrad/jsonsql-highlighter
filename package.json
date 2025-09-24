@@ -19,7 +19,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:json"
+    "onLanguage:json",
+    "onLanguage:sql-in-json"
   ],
   "main": "./out/extension.js",
   "contributes": {

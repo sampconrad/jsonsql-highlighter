@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { safeFormat } from './formatterUtils';
+import { SqlCodeLensProvider } from './sqlCodeLensProvider';
 import { hasSqlContent, processDocument, shouldProcessFile } from './sqlDetector';
 import { getWebviewContent } from './webviewTemplate';
 
@@ -46,7 +47,34 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(onDidOpenTextDocument, onDidChangeTextDocument, formatSQLCommand);
+  const codeLensProvider = new SqlCodeLensProvider();
+  const codeLensDisposable = vscode.languages.registerCodeLensProvider(
+    [{ language: 'json' }, { language: 'sql-in-json' }],
+    codeLensProvider
+  );
+
+  // command executed when user clicks "Open in SQL Editor" lens
+  const openSqlEditorCmd = vscode.commands.registerCommand(
+    'jsonsql-highlighter.openSqlEditor',
+    async (uri: vscode.Uri, range: vscode.Range) => {
+      const doc = await vscode.workspace.openTextDocument(uri);
+      const editor = await vscode.window.showTextDocument(doc, {
+        preview: false,
+        viewColumn: vscode.ViewColumn.Active,
+      });
+
+      editor.selection = new vscode.Selection(range.start, range.end);
+      await vscode.commands.executeCommand('jsonsql-highlighter.formatSQL');
+    }
+  );
+
+  context.subscriptions.push(
+    onDidOpenTextDocument,
+    onDidChangeTextDocument,
+    formatSQLCommand,
+    codeLensDisposable,
+    openSqlEditorCmd
+  );
 }
 
 function createSQLFormatterWebview(

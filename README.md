@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icon.png" width="128" height="128">
   
-  # SQL Highlighter For JSON
+# SQL Highlighter For JSON
 
   A VS Code extension that enhances the developer experience when working with SQL queries embedded in JSON strings. Features toggleable syntax highlighting for SQL within JSON files and a full-featured dedicated SQL editor with seamless conversion back to single-line strings suitable for JSON.
 </div>
@@ -76,11 +76,16 @@ npm run watch
 
 ## 🤖 Automated Releases
 
-This project uses GitHub Actions for automated releases. When you push a tagged commit, the workflow will automatically:
+This project uses GitHub Actions for automated releases.
+
+If you fork this, you'll need to configure a **Repository Secret** named *VSCE_PAT* that holds your *Personal Access Token* to the *Visual Studio Marketplace*.
+
+When you push a tagged commit, the workflow will automatically:
 
 1. Compile the TypeScript code
 2. Package the extension into a `.vsix` file
 3. Create a GitHub release with the packaged extension
+4. Publish the extension to VSCode's Marketplace
 
 ### Creating a Release
 

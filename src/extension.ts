@@ -141,10 +141,15 @@ function createSQLFormatterWebview(
   let formattedSQL: string;
   try {
     formattedSQL = safeFormat(selectedText);
+    
+    // Check if formatting actually failed (indicated by error comment)
+    if (formattedSQL.startsWith('-- SQL formatting failed:')) {
+      vscode.window.showWarningMessage('SQL formatting failed. The query might be too complex or contain unsupported syntax.');
+    }
   } catch (error) {
     // if formatting fails, use the original text
     formattedSQL = selectedText;
-    vscode.window.showWarningMessage('Could not format SQL, using original text.');
+    vscode.window.showErrorMessage(`SQL formatting error: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 
   const panel = vscode.window.createWebviewPanel(

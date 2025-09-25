@@ -38,6 +38,11 @@ jobs:
     - name: List files
       run: ls -la *.vsix
       
+    - name: Publish to VS Code Marketplace
+      run: npx vsce publish
+      env:
+        VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      
     - name: Create Release
       run: |
         VSIX_FILE=$(ls *.vsix | head -1)
@@ -49,7 +54,9 @@ jobs:
         
         ## Installation
         
-        Download the \`.vsix\` file from the assets below and install it in VS Code:
+        The extension has been automatically published to the VS Code Marketplace and is available for installation.
+        
+        You can also download the \`.vsix\` file from the assets below and install it manually:
         1. Open VS Code
         2. Go to Extensions (Ctrl+Shift+X)
         3. Click the \"...\" menu and select \"Install from VSIX...\"

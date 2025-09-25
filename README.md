@@ -35,7 +35,7 @@ The extension provides distinct visual cues for different elements based on your
 **After:** Beautiful syntax highlighting with proper SQL colors:
   ![After](preview/after.webp)
 
-## ✨ SQL Editor Feature
+## ✨ SQL Editor
 
 1. Open the SQL editor in two ways:
 - **A:** **Click** the CodeLens button shown above SQL strings:
@@ -59,6 +59,8 @@ Download the `.vsix` file from the latest release and install it in VS Code:
 3. Click the "..." menu and select "Install from VSIX..."
 4. Select the downloaded `.vsix` file
 
+You can also install it straight from VS Code's Extension Marketplace by searching for ``SQL Highlighter For JSON``.
+
 ## 🔧 Development
 
 To build the extension:
@@ -73,32 +75,6 @@ To watch for changes during development:
 ```bash
 npm run watch
 ```
-
-## 🤖 Automated Releases
-
-This project uses GitHub Actions for automated releases.
-
-If you fork this, you'll need to configure a **Repository Secret** named *VSCE_PAT* that holds your *Personal Access Token* to the *Visual Studio Marketplace*.
-
-When you push a tagged commit, the workflow will automatically:
-
-1. Compile the TypeScript code
-2. Package the extension into a `.vsix` file
-3. Create a GitHub release with the packaged extension
-4. Publish the extension to VSCode's Marketplace
-
-### Creating a Release
-
-1. Update the version in `package.json`
-2. Commit your changes
-3. Create and push a tag:
-
-```bash
-git tag v1.0.3
-git push origin v1.0.3
-```
-
-The workflow will automatically trigger and create a release with the packaged extension attached.
 
 ## 📄 License
 
